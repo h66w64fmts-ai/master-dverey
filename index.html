@@ -1,0 +1,156 @@
+# master-dverey
+Сайт установки межкомнатных дверей в Сургуте
+
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Мастер дверей — Сургут</title>
+<style>
+*{box-sizing:border-box}
+body{margin:0;font:16px Arial,sans-serif;background:#f6f3ed;color:#20221e;line-height:1.6}
+header,footer,.hero{background:#20221e;color:white;padding:24px}
+main{max-width:1000px;margin:auto;padding:24px}
+h1,h2{font-family:Georgia,serif;line-height:1.2}
+h1{font-size:clamp(36px,8vw,58px)}
+.gold{color:#b69a70}
+.btn{display:inline-block;background:#b69a70;color:#20221e;padding:13px 18px;text-decoration:none;border:0;cursor:pointer;font-weight:bold}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:16px}
+.card{background:white;border:1px solid #e4dfd5;padding:22px}
+.price{font-size:28px;font-weight:bold}
+label{display:block;margin-top:14px;font-weight:bold}
+input,select,textarea{width:100%;padding:12px;margin-top:5px;border:1px solid #ccc;font:inherit}
+section{padding:28px 0}
+.hero{padding:40px 24px}
+.muted{color:#77776f}
+</style>
+</head>
+<body>
+<header>
+  <strong style="font: bold 26px Georgia,serif">Мастер <span class="gold">дверей</span></strong>
+  <p>Сургут · +7 982 193-00-17</p>
+</header>
+
+<div class="hero">
+  <main>
+    <p class="gold">ДВА МАСТЕРА · ОДНА КОМАНДА</p>
+    <h1>Установка межкомнатных дверей</h1>
+    <p>Работаем вдвоём. Установка новых дверей, демонтаж старых, монтаж доборов и наличников.</p>
+    <a class="btn" href="#calc">Рассчитать стоимость</a>
+    <a class="btn" href="https://wa.me/79821930017">WhatsApp</a>
+  </main>
+</div>
+
+<main>
+<section>
+  <h2>Услуги и цены</h2>
+  <div class="grid">
+    <div class="card">
+      <h3>Установка двери</h3>
+      <div class="price">4 500 ₽</div>
+      <p>За одну дверь. Доборы и наличники включены.</p>
+    </div>
+    <div class="card">
+      <h3>Демонтаж и установка</h3>
+      <div class="price">5 500 ₽</div>
+      <p>За одну дверь, включая демонтаж старой.</p>
+    </div>
+    <div class="card">
+      <h3>Монтажная пена</h3>
+      <p>Покупает заказчик либо мастер с предоставлением чека.</p>
+    </div>
+  </div>
+</section>
+
+<section>
+  <h2>Наша команда</h2>
+  <div class="grid">
+    <div class="card"><h3>Мастер № 1</h3><p>Установка коробки, навешивание и регулировка дверей.</p></div>
+    <div class="card"><h3>Мастер № 2</h3><p>Демонтаж, подготовка проёма, монтаж доборов и наличников.</p></div>
+  </div>
+  <p class="muted">Два мастера работают вместе на каждом объекте.</p>
+</section>
+
+<section id="calc">
+  <h2>Рассчитать стоимость</h2>
+  <div class="card">
+    <label for="qty">Количество дверей</label>
+    <input id="qty" type="number" min="1" max="30" value="1">
+    <label for="work">Вид работ</label>
+    <select id="work">
+      <option value="4500">Установка — 4 500 ₽</option>
+      <option value="5500">Демонтаж и установка — 5 500 ₽</option>
+    </select>
+    <p>Стоимость работ:</p>
+    <div class="price" id="total">4 500 ₽</div>
+    <p id="schedule" class="muted">Время согласовывается по телефону.</p>
+    <a id="order" class="btn" href="https://wa.me/79821930017">Заказать в WhatsApp</a>
+    <p class="muted">Пена оплачивается отдельно. Дополнительные работы согласовываются заранее.</p>
+  </div>
+</section>
+
+<section>
+  <h2>Записаться на установку</h2>
+  <div class="card">
+    <p>Оставьте контакты — откроется WhatsApp с готовой заявкой.</p>
+    <form id="lead">
+      <label for="name">Ваше имя</label>
+      <input id="name" required>
+      <label for="phone">Телефон</label>
+      <input id="phone" type="tel" required>
+      <label for="date">Желаемая дата</label>
+      <input id="date" type="date" required>
+      <label for="comment">Комментарий</label>
+      <textarea id="comment" rows="3"></textarea>
+      <button class="btn" type="submit" style="margin-top:16px;width:100%">Отправить заявку</button>
+    </form>
+  </div>
+</section>
+</main>
+
+<footer>
+  <strong>Мастер дверей</strong>
+  <p>Сургут · <a class="gold" href="tel:+79821930017">+7 982 193-00-17</a></p>
+</footer>
+
+<script>
+const qty=document.getElementById('qty');
+const work=document.getElementById('work');
+const total=document.getElementById('total');
+const schedule=document.getElementById('schedule');
+const order=document.getElementById('order');
+
+function update(){
+  const n=Math.max(1,Math.min(30,Math.floor(Number(qty.value)||1)));
+  qty.value=n;
+  const price=Number(work.value);
+  total.textContent=(n*price).toLocaleString('ru-RU')+' ₽';
+  schedule.textContent=n>=6
+    ?'Большой заказ: начало планируется на 09:00, подтвердим по телефону.'
+    :'Время согласовывается по телефону.';
+  order.href='https://wa.me/79821930017?text='+encodeURIComponent(
+    'Здравствуйте! Заявка с сайта «Мастер дверей».\nКоличество дверей: '+n+
+    '\nРаботы: '+(price===4500?'Установка':'Демонтаж и установка')+
+    '\nСтоимость работ: '+(n*price).toLocaleString('ru-RU')+
+    ' ₽\n'+schedule.textContent
+  );
+}
+qty.addEventListener('input',update);
+work.addEventListener('change',update);
+document.getElementById('lead').addEventListener('submit',e=>{
+  e.preventDefault();
+  const msg='Заявка с сайта «Мастер дверей»\nИмя: '+
+    document.getElementById('name').value+
+    '\nТелефон: '+document.getElementById('phone').value+
+    '\nЖелаемая дата: '+document.getElementById('date').value+
+    '\nКоличество дверей: '+qty.value+
+    '\nРаботы: '+(work.value==='4500'?'Установка':'Демонтаж и установка')+
+    '\nСтоимость: '+(Number(qty.value)*Number(work.value)).toLocaleString('ru-RU')+
+    ' ₽\nКомментарий: '+document.getElementById('comment').value;
+  window.open('https://wa.me/79821930017?text='+encodeURIComponent(msg),'_blank');
+});
+update();
+</script>
+</body>
+</html>
